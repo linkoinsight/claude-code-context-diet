@@ -1,8 +1,8 @@
 name: Publish to npm
 
 # Auto-publishes on release. Uses NPM_TOKEN repo secret (Casper-managed).
-# Trusted publishing via OIDC is not yet configured on npmjs.com; once it is,
-# remove NODE_AUTH_TOKEN below and re-add `--provenance` to the publish step.
+# Idempotent: skips when package.json version is already on the registry, so
+# re-runs on the same commit don't surface 403 noise.
 on:
   workflow_dispatch:
   release:
@@ -22,6 +22,19 @@ jobs:
           node-version: 22.x
           registry-url: https://registry.npmjs.org
       - run: npm test
+      - name: Skip if version already published
+        id: check
+        run: |
+          PKG_NAME=$(node -p "require('./package.json').name")
+          PKG_VERSION=$(node -p "require('./package.json').version")
+          PUBLISHED=$(npm view "$PKG_NAME" versions --json 2>/dev/null || echo '[]')
+          if echo "$PUBLISHED" | grep -q "\"$PKG_VERSION\""; then
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+            echo "::notice title=Already published::$PKG_NAME@$PKG_VERSION already on npm; skipping publish."
+          else
+            echo "skip=false" >> "$GITHUB_OUTPUT"
+          fi
       - run: npm publish --access public
+        if: steps.check.outputs.skip != 'true'
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
