@@ -1,21 +1,18 @@
 name: Publish to npm
 
-# Manual-only until trusted publishing is configured on npmjs.com.
-# Casper publishes the package directly from the VPS using NPM_TOKEN; this
-# workflow exists for the future once the package is registered as a Trusted
-# Publisher (npmjs.com -> package settings -> Trusted Publishers -> add
-# linkoinsight/claude-code-context-diet + .github/workflows/npm-publish.yml).
+# Auto-publishes on release. Uses NPM_TOKEN repo secret (Casper-managed).
+# Trusted publishing via OIDC is not yet configured on npmjs.com; once it is,
+# remove NODE_AUTH_TOKEN below and re-add `--provenance` to the publish step.
 on:
   workflow_dispatch:
+  release:
+    types: [published]
 
 permissions:
   contents: read
-  id-token: write
 
 jobs:
   publish:
-    # Skip until an npm account is wired. Set the repo variable
-    # NPM_PUBLISH_ENABLED=true (Settings → Variables → Actions) to enable.
     if: vars.NPM_PUBLISH_ENABLED == 'true'
     runs-on: ubuntu-latest
     steps:
@@ -25,4 +22,6 @@ jobs:
           node-version: 22.x
           registry-url: https://registry.npmjs.org
       - run: npm test
-      - run: npm publish --access public --provenance
+      - run: npm publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
