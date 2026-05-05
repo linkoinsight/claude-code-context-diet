@@ -2,6 +2,11 @@
 
 > Claude Code hook that compresses tool outputs before they re-enter your context.
 
+[![npm version](https://img.shields.io/npm/v/claude-code-context-diet)](https://www.npmjs.com/package/claude-code-context-diet)
+[![npm downloads](https://img.shields.io/npm/dm/claude-code-context-diet)](https://www.npmjs.com/package/claude-code-context-diet)
+[![Node.js](https://img.shields.io/node/v/claude-code-context-diet)](https://www.npmjs.com/package/claude-code-context-diet)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+
 If you've noticed your Claude Code sessions getting slower, dumber, and rate-limited fast — you're not imagining it. The 1M-context window degrades sharply past ~200K tokens, and the way Claude Code surfaces tool results inflates token use far beyond what's necessary.
 
 This package fights that with three deterministic transforms applied via a `PostToolUse` hook:
