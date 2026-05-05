@@ -1,9 +1,12 @@
 name: Publish to npm
 
+# Manual-only until trusted publishing is configured on npmjs.com.
+# Casper publishes the package directly from the VPS using NPM_TOKEN; this
+# workflow exists for the future once the package is registered as a Trusted
+# Publisher (npmjs.com -> package settings -> Trusted Publishers -> add
+# linkoinsight/claude-code-context-diet + .github/workflows/npm-publish.yml).
 on:
   workflow_dispatch:
-  release:
-    types: [published]
 
 permissions:
   contents: read
