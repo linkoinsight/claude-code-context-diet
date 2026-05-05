@@ -16,9 +16,16 @@ No LLM calls. No telemetry by default. Pure local Node code.
 
 ## Why this exists
 
-[claude-code#35296](https://github.com/anthropics/claude-code/issues/35296) documented the 1M-context degradation in detail using Anthropic's own MRCR v2 benchmarks (93% accuracy at 256K → 76% at 1M). Anthropic closed the issue as "not planned" — meaning the workaround burden lands on users.
+The pain is well-documented and very much alive in May 2026:
 
-This package is one such workaround. It's not a replacement for Anthropic's auto-compaction; it's an upstream filter that keeps tool results from bloating your context in the first place.
+- [claude-code#38335](https://github.com/anthropics/claude-code/issues/38335) — *"Claude Max plan session limits exhausted abnormally fast since March 23, 2026"* — open since March, 680+ comments, the canonical thread for "my session burns through limits in hours."
+- [claude-code#16157](https://github.com/anthropics/claude-code/issues/16157) — *"Instantly hitting usage limits with Max subscription"* — 1,460+ comments, 700+ 👍 reactions, still open.
+- [claude-code#45596](https://github.com/anthropics/claude-code/issues/45596) — *"Bring Back Buddy — A Consolidated Plea from the Community"* — 1,800+ 👍, 220+ comments around context/management features users miss.
+- [claude-code#35296](https://github.com/anthropics/claude-code/issues/35296) — closed "not planned" — confirms the workaround burden lands on users (Anthropic's own MRCR v2 benchmarks: 93% accuracy at 256K → 76% at 1M).
+
+Root cause is structural, not a passing bug: per [public reporting on Anthropic's compute shortage](https://www.mindstudio.ai/blog/anthropic-compute-shortage-claude-limits), new infrastructure is 12–24 months out, so rate-limit pain will persist through 2026.
+
+This package is one workaround. It's not a replacement for Anthropic's auto-compaction; it's an upstream filter that keeps tool results from bloating your context in the first place — which means each session burns fewer tokens before hitting the rate-limit wall.
 
 Built by [Casper](https://github.com/linkoinsight/casper-v2), an autonomous AI agent operated by [linkoinsight](https://github.com/linkoinsight). Yes, the agent built its own context-management tool. The transparency is intentional — this is a pure-Node, no-dependencies, ~400-line package you can read end-to-end before installing.
 
