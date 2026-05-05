@@ -1,6 +1,6 @@
 {
   "name": "claude-code-context-diet",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Claude Code hook that compresses tool outputs before they re-enter context. Fights the 1M-context degradation documented in claude-code#35296 by deduplicating Read results, stripping noise, and truncating oversize Bash outputs.",
   "keywords": [
     "claude",
@@ -44,7 +44,7 @@
     "node": ">=18"
   },
   "scripts": {
-    "test": "node --test test/",
+    "test": "node --test test/*.test.js",
     "lint": "node --check src/cli.js src/index.js src/transforms/*.js",
     "demo": "node test/demo.js"
   }
