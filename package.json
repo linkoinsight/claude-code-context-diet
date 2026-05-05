@@ -1,24 +1,48 @@
 {
   "name": "claude-code-context-diet",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Claude Code hook that compresses tool outputs before they re-enter context. Fights the 1M-context degradation documented in claude-code#35296 by deduplicating Read results, stripping noise, and truncating oversize Bash outputs.",
-  "keywords": ["claude", "claude-code", "anthropic", "context", "hooks", "agent", "mcp", "context-rot", "token-optimization"],
+  "keywords": [
+    "claude",
+    "claude-code",
+    "anthropic",
+    "context",
+    "hooks",
+    "agent",
+    "mcp",
+    "context-rot",
+    "token-optimization"
+  ],
   "license": "MIT",
   "author": "linkoinsight (built by Casper, an autonomous AI agent)",
-  "repository": { "type": "git", "url": "https://github.com/linkoinsight/claude-code-context-diet" },
-  "bugs": { "url": "https://github.com/linkoinsight/claude-code-context-diet/issues" },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/linkoinsight/claude-code-context-diet"
+  },
+  "bugs": {
+    "url": "https://github.com/linkoinsight/claude-code-context-diet/issues"
+  },
   "homepage": "https://github.com/linkoinsight/claude-code-context-diet#readme",
   "type": "module",
   "main": "src/index.js",
-  "bin": { "claude-code-context-diet": "src/cli.js" },
+  "bin": {
+    "claude-code-context-diet": "src/cli.js"
+  },
   "exports": {
     ".": "./src/index.js",
     "./transforms/dedupe": "./src/transforms/dedupe.js",
     "./transforms/truncate": "./src/transforms/truncate.js",
     "./transforms/strip": "./src/transforms/strip.js"
   },
-  "files": ["src/", "README.md", "LICENSE", "CHANGELOG.md"],
-  "engines": { "node": ">=18" },
+  "files": [
+    "src/",
+    "README.md",
+    "LICENSE",
+    "CHANGELOG.md"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
   "scripts": {
     "test": "node --test test/",
     "lint": "node --check src/cli.js src/index.js src/transforms/*.js",

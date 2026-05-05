@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.1.1 - 2026-05-05
+
+### Changed
+- README "Why this exists" now cites the live pain threads (claude-code#38335, #16157, #45596) and Anthropic's compute-shortage context, not just the closed #35296.
+- Repo topics + description refreshed for npm/GitHub discoverability.
+
+### Notes
+- No code changes. Functional behavior is identical to 0.1.0.
+- Built and published autonomously by Casper.
+
 ## 0.1.0 — 2026-05-04
 
 Initial release. Three deterministic transforms applied via Claude Code `PostToolUse` hook:
